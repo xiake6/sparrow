@@ -7,7 +7,7 @@
 </template>
 
 <script type="text/javascript">
-import {verifyType} from "@/utilsEntry.js";
+import {verifyType,iDate} from "@/utilsEntry.js";
 import calendar from "@components/demoComponents/index.vue";
 
 export default {
