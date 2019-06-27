@@ -1,0 +1,39 @@
+//babel6.X版本之后,所有的插件都是可插拔的,也就是说只安装babel无法正常的工作.
+//我们需要配置对应的.babelrc文件才能起作用。
+//.babelrc文件需要的配置项主要有预设(presets)和插件(plugins)。
+//https://www.cnblogs.com/tugenhua0707/p/9452471.html
+{
+    "presets": [     //presets属性告诉Babel要转换的源码使用了哪些新的语法特性，presets是一组Plugins的集合。
+        [
+            "env",
+            {
+                "modules": false,       //启用将ES6模块语法转换为另一种模块类型。将该设置为false就不会转换模块(现在webpack做了这件事了)
+                "targets": {
+                    "browsers": [
+                        "> 1%",                 //支持市场份额超过1%的浏览器
+                        "last 2 versions",
+                        "not ie <= 8"
+                    ]
+                }
+            }
+        ],
+        "stage-2"
+    ],
+    "plugins": [
+        "transform-vue-jsx",        // JSX是需要编译为JavaScript才可以运行的
+        "transform-runtime"         //1.避免多次编译出helper函数  2.解决@babel/polyfill提供的类或者实例方法污染
+                                    //2.解决@babel/polyfill提供的类或者实例方法污染全局作用域的情况。
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                "env",
+                "stage-2"
+            ],
+            "plugins": [
+                "transform-vue-jsx",
+                "istanbul"
+            ]
+        }
+    }
+}

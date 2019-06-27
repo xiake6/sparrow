@@ -1,0 +1,13 @@
+{
+    "success": true,
+    "data": [
+        {
+            "name": "北京",
+            "code": "BJS"
+        },
+        {
+            "name": "上海",
+            "code": "SHA"
+        }
+    ]
+}

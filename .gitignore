@@ -1,0 +1,22 @@
+.DS_Store
+.vscode/
+bak/
+node_modules/
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/test/unit/coverage/
+/test/e2e/reports/
+selenium-debug.log
+/engineering/userSignIn.js
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+web-sparrow-frame.iml
+/package-lock.json

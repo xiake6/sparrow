@@ -1,0 +1,162 @@
+@import "variable.less";
+html{overflow-x:hidden; -webkit-text-size-adjust:none; font-size:10px; .inc_screen();}
+body{background-color:#EDEFF4; color:@c5;vertical-align:top;font-family:"Microsoft YaHei","SimSun","SimHei",Arial,Tahoma,Helvetica;-webkit-text-size-adjust:none; .boundary(); .inc_screen();}
+h1,h2,h3,h4,h5,h6,div,span,p,table,th,tr,td,dl,dd,dt,ul,ol,li,pre,form,fieldset,input,textarea,blockquote{.boundary();}
+table,tr,th,td,button{border:0;}
+ol,ul,li,dl,dd,dt{list-style:none; .boundary();}
+h1,h2,h3,h4,h5,h6 {line-height:normal;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{.show();  .boundary();}
+img{vertical-align:top; border: 0;}
+input,textarea{
+	outline:none;
+	background:none; border: 0 none; .boundary();
+	&::-webkit-input-placeholder { color:@c8; }
+	&::-moz-placeholder { color:@c8; } /* firefox 19+ */
+	&:-ms-input-placeholder { color:@c8; } /* ie */
+	&:-moz-placeholder { color:@c8; }
+}
+blockquote:after,blockquote:before,q:after,q:before {content: "";content: none;}
+.clear:after,.clear:before {content:"";clear:both;display:block;height:0;visibility:hidden;}
+a{-webkit-text-size-adjust:none;-webkit-user-select:none;-webkit-tap-highlight-color:rgba(255,255,255,0);-webkit-font-smoothing:antialiased;text-decoration:none;} //&:link,&:visited,&:hover,&:active{color:@c5}&:focus{outline:0}}
+.textmb{text-shadow: 2px 0 0 @cf,-2px 0 0 @cf,0px 2px 0 @cf,0px -2px 0 @cf;}
+.good_speed_3d{transform: translateZ(0);}
+.ofScroling{
+	-webkit-overflow-scrolling: touch;	//ios5+
+	overflow-scrolling: touch;
+}
+.boundary{margin:0px;padding:0px;}
+.inc_screen{width:100%; height:100%;}
+.inc_wrap{height:auto; overflow:hidden;}
+.show{display:block;}
+.hide{display:none;}
+.dbl{display:inline-block;}
+.df{display:flex;}
+.nowrap{white-space:nowrap; word-wrap: normal;}
+.fl{float:left;}
+.fr{float:right;}
+.noStyle{font-style:normal; font-weight:normal;}
+.ov{overflow:visible;}
+.oys{overflow-y:scroll;}
+.oxs{overflow-x:scroll;}
+
+.tac{text-align:center;}
+.tal{text-align:left;}
+.tar{text-align:right;}
+
+.toe{
+	text-overflow:ellipsis;
+	overflow: hidden;
+	white-space:nowrap;
+}
+// 多行文字超出时出现省略号
+// .mtoe{
+// 	display: -webkit-box;
+// 	-webkit-box-orient: vertical;
+// 	-webkit-line-clamp: 3;
+// 	overflow: hidden;
+// }
+
+.df{display:flex;}
+
+// .pr,.pf,.pa,.pn{z-index:1;}
+.pr{position:relative;}
+.pf{position:fixed;}
+.pa{position:absolute;}
+
+.pm,.pc{margin:auto;}
+.pm{top:0; bottom:0;}
+.pc{left:0; right:0;}
+.pn{top:0; left:0;}
+.pmc{.pm(); .pc();}
+
+.bmc{transform:translate(-50%,-50%); margin:50% 0 0 50%;}
+.bm{transform:translate(0,50%); margin-top:-50%;}
+.bc{transform:translate(-50%,0); margin-left:50%;}
+
+.bmax_width,.mmax_width,.smax_width,.max_width,.spte_width{max-width:750px; margin:0 auto;}
+.mmax_width{max-width:640px;}
+.smax_width{max-width:600px;}
+.spte_width{max-width:90%;} /*percentage*/
+.max_width{ .bmax_width(); }
+.inc_width{width:750px; margin:0 auto;}
+
+.f52{font-size:52px;}
+.f50{font-size:50px;}
+.f44{font-size:44px;}
+.f42{font-size:42px;}
+.f40{font-size:40px;}
+.f38{font-size:38px;}
+.f36{font-size:36px;}
+.f34{font-size:34px;}
+.f32{font-size:32px;}
+.f30{font-size:30px;}
+.f28{font-size:28px;}
+.f26{font-size:26px;}
+.f24{font-size:24px;}
+.f22{font-size:22px;}
+.f20{font-size:20px;}
+.f18{font-size:18px;}
+.f17{font-size:17px;}
+.f16{font-size:16px;}
+.f15{font-size:15px;}
+.f14{font-size:14px;}
+.f13{font-size:13px;}
+.f12{font-size:12px;}
+.f11{font-size:11px;}
+
+.bgf{background-color:@cf;}
+.bgcfc{background-color:@cfc;}
+.bgeb{background-color:@eb;}
+
+//font colors
+.cf{color:@cf;}
+.c0{color:@c0;}
+.c3{color:#333;}
+.c5{color:@c5;}
+.c6{color:#666;}
+.cb{color:@cb;}
+.c8{color:@c8;}
+.c9{color:#999;}
+.cBase{color:@baseColor;}
+.ccc{color:#ccc};
+
+.cf5{color:@cf5;}
+.cDg{color:@cDg;}
+.cbe{color:#3fadf5;}
+
+/* border的属性 */
+.bt1{border-top:1PX solid @eb;}
+.bb1{border-bottom:1PX solid @eb;}
+/* 盒子的影子 */
+.bs3{box-shadow: 0 0px 5PX rgba(0,0,0,0.3);}
+/* padding值 */
+
+
+/* css图标 */
+
+/* html--展开的三角按钮 */
+.triangleMark{
+	width:15px; height:15px;
+	border-top:1px solid @c8;
+	border-right:1px solid @c8;
+	transform : rotate(-45deg);
+}
+.triangleMark_left{
+	transform: rotate(-135deg);
+}
+.triangleMark_right{
+	transform: rotate(45deg);
+}
+.triangleMark_active{
+	transform : rotate(180deg);
+}
+
+/* css图标 end */
+
+/* 有条件的 */
+.conditionDisplay{
+	display:@conditionDisplay;
+}
+
+/* 解决点击块变色 */
+div,input,section,h1,h2,h3,h4,h5,button,html,body,ul,ol,li,table,dt,dl,dd,p,a{ -webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent; /* For some Androids */ }  
