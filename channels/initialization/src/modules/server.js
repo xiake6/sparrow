@@ -6,12 +6,10 @@
 **/
 
 //引入接口方法文件名
-import commonServer from './common-server';
 import homeServer from './home-server';
 
 //注入接口方法 以解构赋值的方式
 const Server = {
-    ...commonServer,
     ...homeServer,
 
 }
