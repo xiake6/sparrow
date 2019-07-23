@@ -4,7 +4,6 @@
  * @Last modified by:   Rayn
  * @Last modified time: 2018-06-01
  */
-import Vue from 'vue';
 import {unifyAxios} from "@/scripts/http.js";
 
 export default {
