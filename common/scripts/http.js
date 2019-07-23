@@ -30,7 +30,6 @@ function checkStatus(response) {
 * 入参 例： 对照参数options
 * {
 *     url: '/miflightapi/json/touch/searchHotCity.html',
-*     baseRUL: 'https://m.ly.com',
 *     method: 'GET',
 *     data: {category:1},
 * }

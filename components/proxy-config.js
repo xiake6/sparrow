@@ -1,7 +1,6 @@
 const utils = require("../engineering/utils.js");
 const environmentConfig = require("../config/environmentConfig.js");
 // console.log("process.env.NODE_ENV:",process.env.NODE_ENV);
-// console.log("environmentConfig[m.t.ly.com]2:",environmentConfig["m.ly.com"][process.env.NODE_ENV]);
 
 
 module.exports = {

@@ -775,23 +775,25 @@ export default {
         // 主要参数
         params: {
             type: Object,
-            default: {
-                // 航程类型：0单程 1往返
-                trip: 0,
-                // 0:国内 or 1:国际
-                isInter: 0,
-                // 触发类型：0去程 1往程
-                travel: 0,
-                // 去程日期：YYYY-MM-DD
-                depstr: "",
-                // 返程日期：YYYY-MM-DD    出行类型：不存在是：单程；存在是：往返
-                arrstr: "",
-                // 城市三字码 - 去程
-                depcode: "SHA",
-                // 城市三字码 - 返程
-                arrcode: "HKG"
-                // 回调参数： arguments：0是单程||去程  1：返程
-                // callback(respOneWay, respRountWay){}
+            default () {
+                return {
+                    // 航程类型：0单程 1往返
+                    trip: 0,
+                    // 0:国内 or 1:国际
+                    isInter: 0,
+                    // 触发类型：0去程 1往程
+                    travel: 0,
+                    // 去程日期：YYYY-MM-DD
+                    depstr: "",
+                    // 返程日期：YYYY-MM-DD    出行类型：不存在是：单程；存在是：往返
+                    arrstr: "",
+                    // 城市三字码 - 去程
+                    depcode: "SHA",
+                    // 城市三字码 - 返程
+                    arrcode: "HKG"
+                    // 回调参数： arguments：0是单程||去程  1：返程
+                    // callback(respOneWay, respRountWay){}
+                }
             }
         },
         // 日历换肤
