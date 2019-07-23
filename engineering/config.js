@@ -15,7 +15,17 @@ const ProjectConfig = {
 		assetsPath : `xiake/static/webapp/sparrow_${projectName}/`,
 		// 项目名称配置
 		prodname: `touch_website_${projectName}`
-	}
+	},
+    "manage": {
+        // 端口
+        // port : engUtils.PORT,
+        // 版本号：201801v1代表2018文件夹里的01文件夹下的v1版本
+        ver  : '/201901v1',
+        // 资源链接路径
+        assetsPath : `xiake/static/webapp/sparrow_${projectName}/`,
+        // 项目名称配置
+        prodname: `touch_website_${projectName}`
+    },
 };
 
 
