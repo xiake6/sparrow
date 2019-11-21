@@ -8,19 +8,18 @@ const inquirer = require('inquirer');
 const utils = require('./Tools.js');
 //用户登录信息 （自己配置）
 const userSignIn = require( './userSignIn.js' );
-// 项目配置   
-// const prodConfig = require('./prod.cofig.js');
+// 项目配置
+const {projectConfig} = require('../config');
 // setting log
 // const LogSystem = require("./SetLogs.js");
-const prodConfig = require('./config.js');
 // 异步接口代理
 const needle = require( "needle" );
 // 对象转key=val格式之类    cnpm i querystring -D
 const queryString = require('queryString');
 
-/** 
+/**
  * node: 资源上传的脚本ing
- * 
+ *
  * @url            {string}         请求接口的地址
  * @params         {object}         参数对象 ( params object )
  * @assetsPath     {string}         标记的资源路径
@@ -31,20 +30,19 @@ const queryString = require('queryString');
  * @multiplerename {boolean}        已重命名时候需要再重命名
  * @isInquirer     {boolean}        是否开始询问模式
  * @logSta         {boolean}        是否开始日志监控
- * 
- * @params list: 
+ *
+ * @params list:
+ *     1. {}.domainId {string}: 域参数(m.xxx.com)
 */
 class UploadAssets {
     constructor(obj){
         this.opts = {
-            "url"   : "http://efs.corp.xiake.com",
+            "url"   : "http://xxx.com",
             "params": {
-                "domainId": "xiake.com"
+                "domainId": "m.xxx.com"
             },
-            "assetsPath"    : "xiake/static/webapp/wxprogramstaticassets/",
-            // "prodname"      : "wxprogram",
-            // "assetsPath"    : `xiake/static/webapp/${prodConfig.assetsPath}/`,
-            "prodname"      : `${prodConfig.prodname}`,
+            "assetsPath"    : `${projectConfig.assetsPath}`,
+            "prodname"      : `${projectConfig.prodname}`,
             "folderPath"    : "",
             "protocol"      : "http",
             "rename"        : false,
@@ -53,7 +51,7 @@ class UploadAssets {
             "logSta"        : true
         };
         for(let x in obj) this.opts[x] = obj[x];
-        
+
         this.BaseConfig();
         this.initiation();
     }
@@ -73,12 +71,12 @@ class UploadAssets {
     inquirerAdminConfirm(){
         var opts = this.opts,
             path = opts["protocol"] + opts["assetsPath"];
-        
+
         if(opts["isInquirer"]){
             // inquirer prompt
             inquirer.prompt([{
                 type: "confirm",
-                name: "status",     //上传文件到efs站点
+                name: "status",     //上传文件到前端服务器站点
                 message: `请确认上传地址：${path}`
             }]).then(answers => {
                 console.log('then', answers);
@@ -112,16 +110,16 @@ class UploadAssets {
         // // 参数编译成 &key=value模式并且给符号编码
         var params = queryString.stringify(userSignIn);
 
-        needle.post('http://xiake.com/user/login',params,{
+        needle.post('http://xxx.com/user/login',params,{
             cookies: {},
             headers: {}
         },(err,httpResponse,body)=>{
             console.log('登录状态',err, httpResponse.body);
             if( !httpResponse.body.checkSuccess ){
-                console.log(`登录失败body信息：${httpResponse.body}`); 
+                console.log(`登录失败body信息：${httpResponse.body}`);
                 return false;
             };
-            console.log(`登录成功的cookie信息：${JSON.stringify(httpResponse.cookies)}`); 
+            console.log(`登录成功的cookie信息：${JSON.stringify(httpResponse.cookies)}`);
             // setting after sign in cookie info.
             // 设置登录后的cookie信息
             self.setData("cookies",httpResponse.cookies);
@@ -151,7 +149,7 @@ class UploadAssets {
                     that.searchCatalog(
                         sRoute,
                         resp =>{    // callback complete.
-                            
+
                             if( oSlipt[page+1] ){
                                 // 匹配器 - 匹配请求返回中有没有目录名
                                 let oFilter = resp.entity.filter( elem => elem.fileName == oSlipt[page+1] );
@@ -178,7 +176,7 @@ class UploadAssets {
                 };
             };
             // implement mthod
-            recursion();   
+            recursion();
     }
     // upload to server method.
     // 上传到资源服务器方法
@@ -187,7 +185,7 @@ class UploadAssets {
         // 指定文件路径上传
         // if( opts['filePath'] ){ };
         // 指定文件夹路径
-        
+
         if( opts['folderPath'] ){
         console.log('zpimeiy', opts['folderPath'])
 
@@ -229,12 +227,12 @@ class UploadAssets {
                     that.publish();
                     return false;
                 };
-                
+
                 utils.Service({
                     url : `${opts["url"]}/file/upload?`,
                     params : {
                         'domainId': opts.params.domainId,
-                        'filePath': `/${assetsPath}`,    
+                        'filePath': `/${assetsPath}`,
                         'unzip'   : false
                     },
                     ndeData : {
@@ -286,7 +284,7 @@ class UploadAssets {
         });
     }
     // validate config options attribute.
-    // 校验配置项的属性 
+    // 校验配置项的属性
     validateConfigOptions(){
         const opts = this.opts;
         if( !opts["url"] ){
@@ -416,36 +414,9 @@ class UploadAssets {
         };
     }
 }
-const proName = process.env.npm_config_config || 'initialization';
-// console.log('prodConfig', path.join(__dirname, "..", `channels/${proName}/src/assets/img`));
 new UploadAssets({
-    "assetsPath" : prodConfig.assetsPath,
-    "prodname"   : prodConfig.prodname+prodConfig.ver,
-    "folderPath" : path.join(__dirname, "..", `channels/${proName}/src/assets/img`)
+    "assetsPath" : projectConfig.assetsPath,
+    "prodname"   : projectConfig.prodname+projectConfig.ver,
+    "folderPath" : path.join(__dirname, "..", `channels/${projectConfig.proName}/src/assets/img`)
 });
-// new UploadAssets({
-//     "assetsPath" : prodConfig.assetsPath,
-//     "prodname"   : prodConfig.prodname+prodConfig.ver,
-//     "folderPath" : path.join(__dirname, "..", "/logs"),
-//     "isInquirer" : false,
-//     "logSta"     : false
-// });
 module.exports = UploadAssets;
-
-
-
-
-// oUploadMethod.init({
-//     // 请求的域名
-//     'servUrl':'http://efs.corp.xiake.com',
-//     // 默认的参数请求
-//     'params': {
-//         'domainId':'xiake'
-//     },
-//     // 'xiake/static/webapp/mobileFlightWebsite/'
-//     'assetsPath': prodConf.assetsPath + prodConf.prodname+'/',
-//     'prodname' : prodConf.prodname,
-//     // zip文件的资源路径
-//     'zipAssetsPath': 'dist/'+prodConf.prodname+'.zip',
-//     'policyVersion': prodConf.ver
-// });

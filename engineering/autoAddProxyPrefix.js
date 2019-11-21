@@ -4,7 +4,7 @@
 // const environmentConfig = require('../config/environmentConfig.js');
 
 // 对应项目代理
-const proxyConfig = require('../config/proxyConfig.js');
+const {proxyConfig} = require('../config');
 
 class autoAddProxyPrefix{
     constructor(){
@@ -13,7 +13,7 @@ class autoAddProxyPrefix{
     apply(compiler){
         var options = [],
             oFilterProxyConfig = {};
-        
+
         // filter repeat
         for( let x in proxyConfig ){
             oFilterProxyConfig[x.split("/")[1]] = `/${x.split("/").splice(1).join("/")}`;
@@ -43,7 +43,7 @@ class autoAddProxyPrefix{
                 if( !val && index==exparr.length-1 ){
                     return `?(?=\"|\')`;
                 };
-        
+
                 if( !val ){
                     return "";
                 }else{
@@ -77,7 +77,7 @@ class autoAddProxyPrefix{
                         let _regexp = new RegExp(item.expstr, "gi"),
                             _match = source.match(_regexp),
                             matchingString = "";
-                        
+
                         if( _match ){
                             matchingString = _match[0].substr(1);
                         };
@@ -98,14 +98,14 @@ class autoAddProxyPrefix{
             });
 
 
-            
+
 
 
             callback();
         });
     }
     init(){
-        
+
     }
 };
 

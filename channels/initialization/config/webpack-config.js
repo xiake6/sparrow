@@ -1,4 +1,4 @@
-/** 
+/**
  * 添加之前请先查看基础配置 避免重复
  * 有特俗需求除外
  * path: build/
@@ -52,9 +52,9 @@ module.exports = {
         file: 'sprite_icon.less',
         length : 1
     }],
-    // 雪碧图是否放在本地。true则放在本地，false则上传到efs上。
-    // 若要上传到efs，在打包雪碧图后，需要执行npm run upload --config=[name]。
+    // 雪碧图是否放在本地。true则放在本地，false则上传到前端服务器上。
+    // 若要上传到前端服务器，在打包雪碧图后，需要执行npm run upload --config=[name]。
     spritesIsLocal: true
-    
+
 
 }

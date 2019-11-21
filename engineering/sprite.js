@@ -1,52 +1,44 @@
 const path = require('path');
 const fs = require('fs');
 const images = require("images");
-// 项目配置   
-// const prodConfig = require('./prod.cofig.js');
-// log setting
-// const LogSystem = require("./SetLogs.js");
-// 工程脚本通用
-const engUtils = require('./utils.js');
+//系统配置
+const systemConfig = require("../config/systemConfig");
+//项目配置
+const {projectConfig} = require('../config');
 // 对应项目
-const projectName = engUtils.channels;
+const projectName = systemConfig.projectName;
 
 const channelConfig = require(`../channels/${projectName}/config/webpack-config.js`);
-const prodConfig = require('./config.js');
 const isUpload = channelConfig && channelConfig.spritesIsLocal ? '' : ''
 
 var dealwithPage = 0;
 
-function resolve(dir) {
+function resolveJoin(dir) {
     return path.join(__dirname, '..', dir)
 };
 
 function spriteMethod(obj){
     var opts = {
-        icons : "icons",              //文件夹名称        
+        icons : "icons",              //文件夹名称
         sprite : "icon_sprite.png",   //打包后的图片名称
         file : "sprite_icon.less",    //打包后的less文件名称
         // bgurl: '../assets/img/',
-        // bgurl : `https://${prodConfig.assetsPath}${prodConfig.prodname}${prodConfig.ver}/`,
-        bgurl: channelConfig && channelConfig.spritesIsLocal ? '../assets/img/' : `https://${prodConfig.assetsPath}${prodConfig.prodname}${prodConfig.ver}/`,
+        // bgurl : `https://${projectConfig.assetsPath}${projectConfig.prodname}${projectConfig.ver}/`,
+        bgurl: channelConfig && channelConfig.spritesIsLocal ? '../assets/img/' : `https://${projectConfig.assetsPath}${projectConfig.prodname}${projectConfig.ver}/`,
         ratio: 1,    //比例关系 生成css时做出发运算
         length : 1,
         addSize : 10,    // 给宽度高度增加尺寸 主要是因为rem适配会计算不准
         margin : 20     // 边距距离
     };
-    
+
     for(let x in obj) opts[x] = obj[x];
 
     // 间距的处理
 
     //路径处理
-    // var icons  = resolve("assets/"+opts.icons+"/"),
-    //     file   = resolve("src/less/"+opts.file),
-    //     sprite = resolve("assets/img/"+opts.sprite);
-    
-    
-    var icons = resolve(`channels/${projectName}/src/assets/${opts.icons}/`),
-        file   = resolve(`channels/${projectName}/src/less/${opts.file}`),
-        sprite = resolve(`channels/${projectName}/src/assets/img/${opts.sprite}`);
+    var icons = resolveJoin(`channels/${projectName}/src/assets/${opts.icons}/`),
+        file   = resolveJoin(`channels/${projectName}/src/less/${opts.file}`),
+        sprite = resolveJoin(`channels/${projectName}/src/assets/img/${opts.sprite}`);
 
     // 计数变量
     var countVariable = 0;
@@ -79,10 +71,10 @@ function spriteMethod(obj){
             DataImage.push(obj);
         };
     });
-    
+
     deepCopy(DataImage,DataImageSurplus);
 
-    // 将最宽的 5(fileLength) 张图片提出去 保留到 DataImageMaxSize 数组中 
+    // 将最宽的 5(fileLength) 张图片提出去 保留到 DataImageMaxSize 数组中
     // 剩下的数据保存在 DataImageSurplus 数组中
     // var fileLength = files.length>5?5:files.length;
     // console.log( opts.length );
@@ -90,8 +82,8 @@ function spriteMethod(obj){
     // console.log( DataImageSurplus, DataImageMaxSize );
     // console.log('DataImageMaxSize', DataImageMaxSize);
     groupSpriteObject();
-    var resultArray = DataImageMaxSize.concat(DataSprite);  
-       
+    var resultArray = DataImageMaxSize.concat(DataSprite);
+
     createImage( resultArray );
     createCSSFile( resultArray );
     // console.log( searchReaddir )
@@ -106,7 +98,7 @@ function spriteMethod(obj){
     // 组合 sprite 数据 对象
     function groupSpriteObject(fn){
         // 5张的图片的总宽度
-        var fiveCountWidth = [];    
+        var fiveCountWidth = [];
         // 前5张的图片的高度
         var fiveHeight = [];
         // 剩余数据变化存放数组
@@ -136,7 +128,7 @@ function spriteMethod(obj){
             var countNo = 0,    //总数（算图片加起的宽度）
                 tempArr = [],
                 tempSurplusArray = [];
-            
+
             if( !DataImageSurplus.length ){
                 // fn&&fn();
                 return false;
@@ -156,7 +148,7 @@ function spriteMethod(obj){
                     item.y = fiveHeight[_getSize(fiveHeight).idx];
                     // // 要删除的数组元素下标 赋值给 tempSurplusArray
                     // tempSurplusArray.push(i);
-                    // 记录符合条件的循环元素的高度属性 
+                    // 记录符合条件的循环元素的高度属性
                     tempArr.push( item.h + opts.margin );
                     // 把数据添加到 DataSprite 数组中
                     DataSprite.push(item);
@@ -176,7 +168,7 @@ function spriteMethod(obj){
             fiveHeight[_getSize(fiveHeight).idx] += _getSize(tempArr,'max').val;
             //最大高度数据
             oValue.maxHeight = _getSize(fiveHeight,'max').val;
-            
+
             // console.log("-------  图片生成中  -------",_getSize(fiveHeight,'max') );
             // 递归调用
             // var timer = null;
@@ -204,7 +196,7 @@ function spriteMethod(obj){
                     _Index = i;
                 };
             });
-            
+
             maxVal.push( obj[_Index] );
 
             obj.splice( _Index,1 );
@@ -217,8 +209,8 @@ function spriteMethod(obj){
     // 创建图片方法
     function createImage(obj){
         //创建 sprite图片舞台
-        var createSpriteImageStage = images(oValue.maxWidth,oValue.maxHeight);   //创建雪碧图片场景 
-        
+        var createSpriteImageStage = images(oValue.maxWidth,oValue.maxHeight);   //创建雪碧图片场景
+
         obj.forEach(function(elem,index){
             createSpriteImageStage.draw(
                 images(elem.url),
@@ -227,7 +219,7 @@ function spriteMethod(obj){
             );
         });
         //spript图片存放路径
-        
+
         createSpriteImageStage.save(sprite,{quality : 100});
     };
 
@@ -253,11 +245,11 @@ function spriteMethod(obj){
             });
             //../src/assets/img/icon_sprite.png //$backSpriteUrl
             var _bgSizeW = oValue.maxWidth/opts.ratio;
-            incBacksize += `{background:url(${opts.bgurl}${opts.sprite}) no-repeat; background-size:${_bgSizeW}px auto; display:inline-block;}`;   
+            incBacksize += `{background:url(${opts.bgurl}${opts.sprite}) no-repeat; background-size:${_bgSizeW}px auto; display:inline-block;}`;
             return incBacksize + cssResult.join("");
         };
 
-        //scss文件存放路径 
+        //scss文件存放路径
         fs.writeFileSync(file, createCSS(), { //appendFile
             encoding: "utf8",
             flags: "a",

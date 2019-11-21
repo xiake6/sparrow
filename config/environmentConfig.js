@@ -1,12 +1,15 @@
-module.exports = {
-    "www.xiake666.com": {
-        'dev': 'http://www.xiake666.com/',
-        'qa': 'http://www.qa.xiake666.com/',
-        'product': 'www.xiake666.com/',
+let domainMap = {
+    "www.xxx.com": {
+        'dev': 'http://www.xxx.com/',
+        'qa': 'http://www.qa.xxx.com/',
+        'stage': 'http://www.stage.xxx.com/',
+        'product': 'http://wx.17u.cn/',
     },
-    // "test":{
-    //     'dev': 'http://test/',
-    //     'qa': 'http://test/',
-    //     'product': 'http://test/',
-    // },
+};
+//系统配置
+const systemConfig = require("../config/systemConfig");
+
+module.exports = {
+    "www.xxx.com": domainMap['www.xxx.com'][systemConfig.envconfig],
 }
+

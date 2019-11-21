@@ -3,15 +3,15 @@
  * webpack的测试环境配置文件
  * 用于unit test
  */
-const utils = require('./utils')
+const {styleLoaders} = require('../engineering/utils')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 
-const webpackConfig = merge(baseWebpackConfig, {
+const testWebpackConfig = merge(baseWebpackConfig, {
   // use inline sourcemap for karma-sourcemap-loader
   module: {
-    rules: utils.styleLoaders()
+    rules: styleLoaders()
   },
   devtool: '#inline-source-map',
   resolveLoader: {
@@ -23,12 +23,12 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../config/test.env')
+      'process.env': require('./definePlugin/test.env')
     })
   ]
 })
 
 // no need for app entry during tests
-delete webpackConfig.entry
+delete testWebpackConfig.entry
 
-module.exports = webpackConfig
+module.exports = testWebpackConfig
