@@ -72,8 +72,8 @@ const proxyConfig = {
     // }
 };
 
-function objectFaultTolerant(filePath=`config/index.js`, trycatch={}){
-    console.log("校验文件是否存在:",path.join);
+function objectFaultTolerant(filePath=`config/webpack-config.js`, trycatch={}){
+    // console.log("校验文件是否存在:",path.join);
     // 校验文件是否存在
     var prefixurl = path.join(__dirname,"..",`channels/${systemConfig.projectName}/${filePath}`),
         _fileExists = fs.existsSync( prefixurl );
