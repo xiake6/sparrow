@@ -4,7 +4,6 @@
  * path: build/
 **/
 
-const utils = require("../../../engineering/utils.js");
 const environmentConfig = require("../../../config/environmentConfig.js");
 
 module.exports = {
@@ -14,11 +13,11 @@ module.exports = {
     devPlugins: [],
     // 代理配置
     proxyTable: {
-        // //代理请求到线上环境
-        // "/test/home/**": {
-        //     target: environmentConfig["www.xiake666.com"][utils.envconfig],
-        //     changeOrigin: true,
-        // }
+        //代理请求到线上环境
+        "/test/home/**": {
+            target: environmentConfig["www.xxx.com"],
+            changeOrigin: true,
+        }
     },
     // potscss设置
     postcss: [

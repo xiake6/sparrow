@@ -1,10 +1,9 @@
 /**
  * 添加之前请先查看基础配置 避免重复
- * 有特俗需求除外
+ * 有特殊需求除外
  * path: build/
 **/
 
-const utils = require("../../../engineering/utils.js");
 const environmentConfig = require("../../../config/environmentConfig.js");
 
 module.exports = {
@@ -15,10 +14,10 @@ module.exports = {
     // 代理配置
     proxyTable: {
         //代理请求到线上环境
-        // "/xieke/**": {
-        //     target: environmentConfig["www.***.com"][utils.envconfig],
-        //     changeOrigin: true,
-        // }
+        "/xieke/prod/**": {
+            target: environmentConfig["www.xxx.com"],
+            changeOrigin: true,
+        },
         // 代理到本地
         '/xiake/json/**': {
             target: 'http://localhost:1777',
